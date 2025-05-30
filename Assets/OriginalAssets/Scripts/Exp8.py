@@ -73,7 +73,6 @@ def align_sequences(ref, s, path):
 
     return ns
 
-
 # Visualization
 def plot_alignment(ref_signal, estimated_signal, path, **kwargs):
     """
@@ -810,8 +809,6 @@ def visualize_dtw(df_model, df_test, winlen=12, alpha=0.5):
     plt.title("DTW Alignment")
     plt.show()
 
-
-
 def resize_to_720(arr):
     """arr: shape=(N, 3)のnumpy配列を720フレームにリサイズ"""
     n = arr.shape[0]
@@ -927,13 +924,21 @@ def get_dtw_path_length_with_resized_test(df_model, df_test, winlen=12, alpha=0.
     _, _, _, path = dtw_sw(Ax, Ay, Az, Bx, By, Bz, winlen=winlen, alpha=alpha, window='sakoe-chiba', factor=factor)
     path0, path1 = path
 
+     # 可視化
+    plt.figure(figsize=(10, 4))
+    plot_alignment(Ax, Bx, path)
+    plt.title(f"{model_name} - Tr{te_num} DTW Alignment")
+    plt.show()
+
     # パスの長さを返す
     return len(path0)
 
 # モデル・テストファイルのリスト
-model_names = ['Traj1', 'Traj2', 'Traj3', 'Traj4', 'Traj5','Auto1', 'Auto2', 'Auto3', 'Auto4', 'Auto5']
+#model_names = ['Traj1', 'Traj2', 'Traj3', 'Traj4', 'Traj5','Auto1', 'Auto2', 'Auto3', 'Auto4', 'Auto5']
+model_names = ['Auto1']
 model_dir = 'Assets/OriginalAssets/File/Exp8_Model'
-test_dir = 'Assets/OriginalAssets/File/Exp8_User'
+#test_dir = 'Assets/OriginalAssets/File/Exp8_User'
+test_dir = 'Assets/OriginalAssets/File/Demo'
 
 # スコアをテスト番号ごとにまとめる
 test_scores = {f'Test{te_num}': {} for te_num in range(1, 21)}
@@ -949,7 +954,8 @@ for model_name in model_names:
 
     for te_num in range(1, 21):
     #for te_num in [1, 5, 10, 15, 20]:
-        test_name = f'{model_name}_Te{te_num}'
+        #test_name = f'{model_name}_Te{te_num}'
+        test_name = f'{'irokouka'}_Tr{te_num}'
         test_path = f'{test_dir}/{test_name}.csv'
         try:
             df_test = pd.read_csv(test_path)

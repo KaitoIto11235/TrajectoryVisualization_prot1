@@ -21,10 +21,6 @@ public class TransparencyManager
         public Color[] originalColors;
     }
 
-    private void Start()
-    {
-        // 必要に応じてここで初期設定
-    }
 
     /// <summary>
     /// 特定のタグを持つすべてのオブジェクトを透明化します

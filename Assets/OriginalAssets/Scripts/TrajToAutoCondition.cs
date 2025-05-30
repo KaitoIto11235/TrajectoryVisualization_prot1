@@ -177,28 +177,32 @@ public class TrajToAutoCondition : MonoBehaviour
         if(ableChange)
         {
             // "TransparentTarget"タグを持つオブジェクトを一括で透明化。
-            if(!trajToAutoFile.InteractUI == true) 
+            if (!trajToAutoFile.InteractUI == true)
             {
-                if(trajToAutoFile.CurrentTrialCount <= 20)  // Trajectoryトレーニングでテストを10(=20/2)回行ったら、AutoModelを表示。
-                {
-                    prefabTransparencyManager.MakeTaggedObjectsTransparent("Trajectory");
-                }
-                else
-                {
-                    prefabTransparencyManager.MakeTaggedObjectsTransparent("AutoModel");
-                }
+                prefabTransparencyManager.MakeTaggedObjectsTransparent("Trajectory");
+                prefabTransparencyManager.MakeTaggedObjectsTransparent("AutoModel");
                 
+                // if (trajToAutoFile.CurrentTrialCount <= 20)  // Trajectoryトレーニングでテストを10(=20/2)回行ったら、AutoModelを表示。
+                // {
+                //     prefabTransparencyManager.MakeTaggedObjectsTransparent("Trajectory");
+                // }
+                // else
+                // {
+                //     prefabTransparencyManager.MakeTaggedObjectsTransparent("AutoModel");
+                // }
+
             }
             else  // "TransparentTarget"タグを持つオブジェクトのマテリアルを元に戻す。
             {
-                if(trajToAutoFile.CurrentTrialCount <= 20)
-                {
-                    prefabTransparencyManager.RestoreObjects("Trajectory");
-                }
-                else
-                {
-                    prefabTransparencyManager.RestoreObjects("AutoModel");
-                }
+                prefabTransparencyManager.RestoreObjects("Trajectory");
+                // if (trajToAutoFile.CurrentTrialCount <= 20)
+                // {
+                //     prefabTransparencyManager.RestoreObjects("Trajectory");
+                // }
+                // else
+                // {
+                //     prefabTransparencyManager.RestoreObjects("AutoModel");
+                // }
             }
         }
         else

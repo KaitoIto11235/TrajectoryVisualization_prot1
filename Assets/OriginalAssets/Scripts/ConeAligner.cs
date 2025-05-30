@@ -22,7 +22,7 @@ public class ConeAligner : MonoBehaviour
     private bool isInitialized = false;
 
     [SerializeField] GameObject Cone;
-
+    [SerializeField] Material coneMaterial;
 
     void Start()
     {
@@ -49,6 +49,8 @@ public class ConeAligner : MonoBehaviour
             }
             return;
         }
+
+        
         
     }
 
@@ -75,7 +77,7 @@ public class ConeAligner : MonoBehaviour
             // FileOperationのmodelPositionsが初期化され、十分なデータがあるか確認
             if (fileOperation.modelPositions != null)
             {
-                for(int trajectoryIndex = 0; trajectoryIndex <= 710; trajectoryIndex += 10)
+                for(int trajectoryIndex = 0; trajectoryIndex <= 710; trajectoryIndex += 9)
                 {
                     Vector3 startPoint = fileOperation.modelPositions[trajectoryIndex];
                     Vector3 endPoint = fileOperation.modelPositions[trajectoryIndex + 9];
@@ -83,7 +85,7 @@ public class ConeAligner : MonoBehaviour
                     isInitialized = true;
                     
                     // 円錐を配置
-                    AlignCone(startPoint, endPoint, trajectoryIndex/10);
+                    AlignCone(startPoint, endPoint, trajectoryIndex/9);
                 }
                 Debug.Log("ConeAligner: 正常に初期化され、円錐を配置しました。");
             }
@@ -122,43 +124,14 @@ public class ConeAligner : MonoBehaviour
         cone.tag = "Trajectory";
         // 円錐のスケールを調整（距離に応じてY軸方向に拡大）
         Vector3 currentScale = cone.transform.localScale;
-        cone.transform.localScale = new Vector3(currentScale.x * 2f, currentScale.y * 2f, distance * 100f * 50f);
-        int r=0;
-        int g=0;
-        int b=0;
-        // if(0 <= coneNumber)
-        // {
-        //     if(coneNumber < 24)
-        //     {
-        //         r = coneNumber * 10;
-        //     }
-        //     else
-        //     {
-        //         r = 230;
-        //     }
-        // }
-        // if(24 <= coneNumber)
-        // {
-        //     if(coneNumber <48)
-        //     {
-        //         g = (coneNumber-24) * 10;
-        //     }
-        //     else
-        //     {
-        //         g = 230;
-        //     }
-        // }
-        // if(48 <= coneNumber)
-        // {
-        //     if(coneNumber < 72)
-        //     {
-        //         b = (coneNumber-48) * 10;
-        //     }
-        // }
-
-        r = (int)(coneNumber * 3.54);
-        g = (int)(coneNumber * 3.54);
-        b = (int)(coneNumber * 3.54);
-        cone.GetComponent<Renderer>().material.color = new Color32((byte)r, (byte)g, (byte)b, 1);
+        //cone.transform.localScale = new Vector3(scaleXY, scaleXY, distance * 50f);
+        cone.transform.localScale = new Vector3(1.0f, 1.0f, distance * 50f);
+        Material mat = new Material(coneMaterial);
+        cone.GetComponent<Renderer>().material = mat;
+        float ratency = (float)coneNumber % 10;  // 0.0fから4.0fまでの値
+        ratency /= 10f;
+        mat.SetFloat("_Ratency", ratency);
     }
+
+    
 }
