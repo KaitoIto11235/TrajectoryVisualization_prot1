@@ -135,10 +135,10 @@ public class TrajToAutoCondition : MonoBehaviour
         }
 
         // 効果音 (GuidanceTime を CurrentGuidanceTime に変更)
-        if(autoGuidance != null && (autoGuidance.CurrentGuidanceTime+1) % 90 == 0 && autoGuidance.CurrentGuidanceTime <= 721 && autoGuidance.CurrentGuidanceTime > -1)
-        {
-            audioSource.Play();
-        }
+        // if(autoGuidance != null && (autoGuidance.CurrentGuidanceTime+1) % 90 == 0 && autoGuidance.CurrentGuidanceTime <= 721 && autoGuidance.CurrentGuidanceTime > -1)
+        // {
+        //     audioSource.Play();
+        // }
 
         // RecordingUpdate はユーザーの位置更新と記録状態の管理を行うため、そのまま呼び出す
         if (Recording && trajToAutoFile != null)

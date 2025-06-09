@@ -123,12 +123,10 @@ public class ConeAligner : MonoBehaviour
         GameObject cone = Instantiate(Cone, (startPoint + endPoint) * 0.5f, Quaternion.FromToRotation(Vector3.forward, direction));
         cone.tag = "Trajectory";
         // 円錐のスケールを調整（距離に応じてY軸方向に拡大）
-        Vector3 currentScale = cone.transform.localScale;
-        //cone.transform.localScale = new Vector3(scaleXY, scaleXY, distance * 50f);
         cone.transform.localScale = new Vector3(1.0f, 1.0f, distance * 50f);
         Material mat = new Material(coneMaterial);
         cone.GetComponent<Renderer>().material = mat;
-        float ratency = (float)coneNumber % 10;  // 0.0fから4.0fまでの値
+        float ratency = coneNumber; 
         ratency /= 10f;
         mat.SetFloat("_Ratency", ratency);
     }
